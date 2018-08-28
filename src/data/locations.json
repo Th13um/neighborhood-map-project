@@ -6,5 +6,21 @@
         "lng": 2.338629
     },
     "id": 1
+},
+{
+    "title": "Musée Galliera",
+    "location": {
+        "lat":48.865379,
+        "lng": 2.296700
+    },
+    "id": 2
+},
+{
+  "tittle":"Musée Rodin",
+  "location": {
+      "lat":48.855133,
+      "lng": 2.315818
+  },
+  "id": 3
 }
 ]
