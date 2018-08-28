@@ -1,5 +1,119 @@
-body {
-  margin: 0;
-  padding: 0;
+html, body, {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
   font-family: sans-serif;
+}
+
+#mapContainer{
+  max-width: 1200px;
+  max-height: 700px;
+  margin: 25px auto;
+}
+
+
+#container {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 100px;
+  width: 300px;
+  margin-left: 12px;
+  left: 10px;
+}
+
+
+.search-box {
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 48px;
+  outline: none;
+
+}
+
+.user-selected {
+  color: #6c6c6c;
+  font-size: 15px;
+  font-family: Roboto;
+  padding: 0 11px 0 13px;
+  height: 48px;
+  line-height: 48px;
+  font-weight: 300;
+  width: 100%;
+  font-size: 18px;
+  border-top: 1px solid #c6c6c6;
+  cursor: default;
+  direction: ltr;
+  text-align: left;
+}
+
+.user-selected:hover {
+  background-color: #c6c6c6;
+}
+
+.user-selected-item-container {
+  margin-top: 1px;
+  background-color: #fff;
+  border-radius: 0 0 2px 2px;
+  font-size: 15px;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+
+#location-input {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 300;
+  position: absolute;
+  width: 100%;
+  padding: 0 11px 0 53px;
+  text-overflow: ellipsis;
+}
+
+
+#location-input:focus {
+  border-color: #03dac6;
+}
+
+.location-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #03dac6;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+/* To be responsive */
+@media screen and (min-width: 769px) {
+  .user-selected-item-container-responsive-hide{
+      display: none;
+  }
+  .user-selected-item-container-responsive-show{
+      display: block;
+  }
+  .user-selected-item-container-responsive{
+      display: block;
+  }
+}
+@media screen and (max-width: 768px) {
+  .user-selected-item-container-responsive-hide{
+      display: none;
+  }
+  .user-selected-item-container-responsive-show{
+      display: block;
+  }
+  .user-selected-item-container-responsive{
+      display: none;
+  }
 }
