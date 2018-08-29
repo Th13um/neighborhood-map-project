@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import DataLocations from './data/Locations.json'
 import Map from './components/Map'
+import './App.css'
 
+
+export const FacebookAccessToken = 'EAADzKK0H2DUBAKgWDjSLKAJJ33gs8Gz21hGrw3CpV8LZBE8CjrS62zhBkcY35yiNc0P8i11CTTYHlCdre2p1LKGoYDoB9BYGoaSdTXJPJSl2DeMWNceq7hZBZBtMSZBhDMFYrhltt8ApWD74tLOlZC62CO3KgDpCdlqBtcPZBLMwgtQsOSQ4QLxbx3CV44fGoZD'
+export const GoogleMapAPIKey = 'AIzaSyCWxhujtEkLYQauF0fHdEbrvHT_U3ZDRSE'
 
 class App extends Component {
 
   state = {
-    locations: []
+    locations: DataLocations
   }
 
   constructor(props) {
@@ -22,7 +26,7 @@ class App extends Component {
     })
 
     window.loadMap = this.loadMap;
-    initJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyCWxhujtEkLYQauF0fHdEbrvHT_U3ZDRSE&callback=loadMap')
+    initJS('https://maps.googleapis.com/maps/api/js?key=' + GoogleMapAPIKey + '&callback=loadMap')
   }
 
 
@@ -35,13 +39,18 @@ class App extends Component {
     mapView.style.height = window.innerHeight + "px";
 
     const map = new window.google.maps.Map(mapView, {
-      center: { lat: 48.864716, lng: 2.349014 }
+      center: { lat: 48.864716, lng: 2.349014 },
+      mapTypeControlOptions: {
+        style: window.google.maps.MapTypeId.ROAD,
+        position: window.google.maps.ControlPosition.LEFT_BOTTOM
+      },
+      mapTypeControl: false
     });
 
     this.map = map;
     this.FacebookInfoWindow = new window.google.maps.InfoWindow();
 
-    // Set the Bounds of the Map to the Locations
+    //Set the Bounds of the Map to the Locations
     const bounds = new window.google.maps.LatLngBounds();
 
     // Create Markers
@@ -66,16 +75,17 @@ class App extends Component {
         lng: location.location.lng
       },
       map: this.map,
-      title: location.name,
-      animation: window.google.maps.Animation.BOUNCE
+      title: location.title,
+      animation: window.google.maps.Animation.BOUNCE,
+      facebookID: location.id
     })
 
     marker.addListener('click', function () {
-      self.populateInfoWindow(this, self.FacebookInfoWindow);
-    });
+      self.populateInfoWindow(this, self.FacebookInfoWindow)
+    })
 
     return marker
-  };
+  }
 
 
   // Display Info Window with Data
@@ -94,10 +104,25 @@ class App extends Component {
       // Event Listener - on Closing Window
       infowindow.addListener('closeclick', function () {
         infowindow.marker = null
-      });
-
+      })
     }
-
+    // Get data about the Markers from the Facebook API
+    const URL_REQ = "https://graph.facebook.com/"
+      + marker.facebookID
+      + "?fields=id,name,location,about,website&access_token="
+      + FacebookAccessToken;
+     const getFacebookGraphAPI = () =>
+      fetch(URL_REQ, {})
+        .then(res => res.json())
+        .then(data => data)
+    getFacebookGraphAPI().then((response) => {
+      console.log(response)
+       infowindow.setContent('<div>' +
+        '<div><strong>Name:</strong> ' + response.name + '</div>' +
+        '<div><strong>Address: </strong> ' + response.location.street + '</div>' +
+        '<div><strong>Description: </strong> ' + response.about + ' </div>' +
+        '</div>')
+     })
   }
 
   //Filter the list of locations

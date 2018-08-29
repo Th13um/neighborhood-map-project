@@ -14,9 +14,8 @@ import PropTypes from 'prop-types'
                 <div>
                     <input
                         id="location-input"
-                        className="search-box"
                         type="text"
-                        placeholder="Search Restaurants"
+                        placeholder="Search Monument"
                         onChange={(event) => searchLocation(event.target.value)} />
                 </div>
                  <div className="user-selected-item-container user-selected-item-container-responsive">
