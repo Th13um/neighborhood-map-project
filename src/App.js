@@ -7,13 +7,11 @@ export const FacebookAccessToken = 'EAADzKK0H2DUBAOka53uN9GHXKrDZAh9bb57C0SxyxGw
 export const GoogleMapAPIKey = 'AIzaSyCWxhujtEkLYQauF0fHdEbrvHT_U3ZDRSE'
 
 function initJS(src) {
-  console.log("here 1")
   const ref = window.document.getElementsByTagName("script")[0]
   const script = window.document.createElement("script")
   script.src = src
   script.async = true
   ref.parentNode.insertBefore(script, ref)
-  console.log("here 2")
 }
 
 class App extends Component {
@@ -41,15 +39,14 @@ class App extends Component {
     document.getElementById("mapContainer").remove()
 
     // Display Error Message
-    alert('Google Maps custom error triggered')
     const mapView = document.getElementById('parent')
     const node = document.createElement("div");
     const textnode = document.createTextNode("Google Map not loaded ! Please check parameters.");
+
     node.appendChild(textnode);
     mapView.appendChild(node)
 
   }
-
 
   //initialize map
   loadMap() {

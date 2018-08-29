@@ -25,7 +25,7 @@ export default class LocationList extends React.Component {
             aria-label="Search Input Box"
             role="listitem"
             onChange={(event) => searchLocation(event.target.value)}/>
-          // For Each Location, display a clickcable marker
+
           <div tabIndex="-1"
             className="user-selected-item-container user-selected-item-container-responsive">
             { locations.map((location) => (
