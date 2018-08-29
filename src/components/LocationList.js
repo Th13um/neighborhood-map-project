@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
- export default class Map extends React.Component {
+ export default class LocationList extends React.Component {
      // Ensure we receive the properties as expected
     static propTypes = {
         locations: PropTypes.array.isRequired,
@@ -23,7 +23,7 @@ import PropTypes from 'prop-types'
                         locations.map((location) => (
                              <div
                                 key={location.title}
-                                className="user-selected control">
+                                className="user-selected">
                             </div>
                         ))
                     }
