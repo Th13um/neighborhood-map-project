@@ -3,8 +3,18 @@ import DataLocations from './data/Locations.json'
 import LocationList from './components/LocationList'
 import './App.css'
 
-export const FacebookAccessToken = 'EAADzKK0H2DUBAKgWDjSLKAJJ33gs8Gz21hGrw3CpV8LZBE8CjrS62zhBkcY35yiNc0P8i11CTTYHlCdre2p1LKGoYDoB9BYGoaSdTXJPJSl2DeMWNceq7hZBZBtMSZBhDMFYrhltt8ApWD74tLOlZC62CO3KgDpCdlqBtcPZBLMwgtQsOSQ4QLxbx3CV44fGoZD'
+export const FacebookAccessToken = 'EAADzKK0H2DUBAOka53uN9GHXKrDZAh9bb57C0SxyxGwRS8sJZBj1ie27e3cMMQ0st2cx7ClFGy60ADxw8srcUj4IF3DZAw9wFmBPlvxr13rl9t0ozZAQMThRVVHSBz4mfoWL8sm3RsYZBR4RpPqclpDuCWNePHk7oM8qG6SJAy41STzsuJVxSZBxGAglJhYZCeZAbUpQJwUGmgZDZD'
 export const GoogleMapAPIKey = 'AIzaSyCWxhujtEkLYQauF0fHdEbrvHT_U3ZDRSE'
+
+function initJS(src) {
+  console.log("here 1")
+  const ref = window.document.getElementsByTagName("script")[0]
+  const script = window.document.createElement("script")
+  script.src = src
+  script.async = true
+  ref.parentNode.insertBefore(script, ref)
+  console.log("here 2")
+}
 
 class App extends Component {
 
@@ -21,7 +31,23 @@ class App extends Component {
 
   componentDidMount() {
     window.loadMap = this.loadMap
+    window.gm_authFailure = this.googleError
     initJS('https://maps.googleapis.com/maps/api/js?key=' + GoogleMapAPIKey + '&callback=loadMap')
+  }
+
+  // If the Google Map Fails to load
+  googleError() {
+    document.getElementById("container").remove()
+    document.getElementById("mapContainer").remove()
+
+    // Display Error Message
+    alert('Google Maps custom error triggered')
+    const mapView = document.getElementById('parent')
+    const node = document.createElement("div");
+    const textnode = document.createTextNode("Google Map not loaded ! Please check parameters.");
+    node.appendChild(textnode);
+    mapView.appendChild(node)
+
   }
 
 
@@ -90,7 +116,7 @@ class App extends Component {
       infowindow.marker = marker
 
       // Displays message whilst Facebook Data is being retrieved
-      infowindow.setContent('<div>Fetching Content from Facebook...</div>')
+      infowindow.setContent('<div>Retrieved data. Please wait</div>')
       infowindow.open(this.map, marker)
 
       // Event Listener - on Closing Window
@@ -115,7 +141,7 @@ class App extends Component {
 
       infowindow.setContent('<div>' +
         '<div><strong>Name:</strong> ' + response.name + '</div>' +
-        '<div><strong>Address: </strong> ' + response.location.street + '</div>' +
+        '<div><strong>Address: </strong> ' + response.location + '</div>' +
         '<div><strong>Description: </strong> ' + response.about + ' </div>' +
         '</div>')
 
@@ -192,12 +218,3 @@ class App extends Component {
 }
 
 export default App
-
-
-function initJS(src) {
-  const ref = window.document.getElementsByTagName("script")[0]
-  const script = window.document.createElement("script")
-  script.src = src
-  script.async = true
-  ref.parentNode.insertBefore(script, ref)
-}
