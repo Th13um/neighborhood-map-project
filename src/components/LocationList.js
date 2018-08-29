@@ -21,7 +21,7 @@ export default class LocationList extends React.Component {
             tabIndex="0"
             id="location-input"
             type="text"
-            placeholder="Search Restaurants"
+            placeholder="Search Museum"
             aria-label="Search Input Box"
             role="listitem"
             onChange={(event) => searchLocation(event.target.value)}/>
@@ -31,7 +31,7 @@ export default class LocationList extends React.Component {
             { locations.map((location) => (
               <div
                 onKeyPress={selectLocation.bind(this, location)}
-                aria-label={"Restaurant Name - " + location.title}
+                aria-label={"Museum Name - " + location.title}
                 key={location.title}
                 className="user-selected"
                 tabIndex="0"

@@ -2,7 +2,7 @@
   {
       "title": "Musée du Louvre",
       "location": {
-          "lat":48.860294,
+          "lat": 48.860294,
           "lng": 2.338629
         },
         "id": 23680604925
@@ -10,31 +10,31 @@
       {
         "title": "Musée Galliera",
         "location": {
-          "lat":48.865379,
+          "lat": 48.865379,
           "lng": 2.296700
         },
         "id": 187723778041520
       },
       {
-        "tittle":"Musée Rodin",
+        "tittle": "Musée Rodin",
         "location": {
-          "lat":48.855133,
+          "lat": 48.855133,
           "lng": 2.315818
         },
         "id": 126901424030612
       },
       {
-        "tittle":"Musée d'Orsay",
+        "tittle": "Musée d'Orsay",
         "location": {
-          "lat":48.859962,
+          "lat": 48.859962,
           "lng": 2.326561
         },
         "id": 170924542917905
       },
       {
-        "tittle":"Musée de l'armée",
+        "tittle": "Musée de l'armée",
         "location": {
-          "lat":48.860256,
+          "lat": 48.860256,
           "lng": 2.317664
         },
         "id": 154415491341102

@@ -83,7 +83,6 @@ class App extends Component {
   createMarker(location) {
 
     const self = this
-
     const marker = new window.google.maps.Marker({
       position: {
         lat: location.location.lat,
@@ -170,13 +169,13 @@ class App extends Component {
       let SearchedLocations = DataLocations.filter(location => {
 
         if (location.marker) {
-          if (location.title.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
+          if (location.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
             location.marker.setMap(self.map)
           } else {
             location.marker.setMap(null)
           }
         }
-        return location.title.toLowerCase().indexOf(query.toLowerCase()) > -1
+        return location.toLowerCase().indexOf(query.toLowerCase()) > -1
       })
 
       // Set Locations
