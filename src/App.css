@@ -1,102 +1,65 @@
-html, body, {
+html, body, #mapContainer {
   height: 100%;
   width: 100%;
   margin: 0px;
   padding: 0px;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
 }
 
-#mapContainer{
-  max-width: 1200px;
-  max-height: 700px;
-  margin: 25px auto;
-}
-
-
+/* The Locations List Container*/
 #container {
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 8px #888888;
   position: absolute;
   top: 10px;
   width: 180px;
-  margin-left: 12px;
   left: 10px;
 }
 
-
-.#location-input {
+/* Location Search Box */
+#location-input {
   font-size: 15px;
-   position: absolute;
+  position: absolute;
   width: 100%;
-  padding: 0 10px 0 10px;
-  text-overflow: ellipsis;
+  padding: 10px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
   box-sizing: border-box;
   height: 45px;
-  outline: none;
 }
 
 #location-input:focus {
   border-color: #03dac6;
 }
 
-.user-selected {
-  color: #6c6c6c;
-  padding: 0 10px 0 13px;
-  height: 45px;
-  line-height: 50px;
-  width: 100%;
-  border-top: 1px solid #c6c6c6;
-  cursor: default;
-}
 
-.user-selected:hover {
-  background-color: #6200ee;
-}
-
+/* Locations Listings Container */
 .user-selected-item-container {
   margin-top: 1px;
   background-color: #fff;
-  border-radius: 0 0 2px 2px;
-  font-size: 15px;
+  border-radius: 0 0 5px 5px;
   overflow: hidden;
   margin-top: 50px;
 }
 
 
-#location-input {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: 300;
-  position: absolute;
+/* Location List Items */
+.user-selected {
+  color: #001f3f;
+  padding: 0 10px 0 15px;
+  height: 45px;
+  line-height: 50px;
   width: 100%;
-  padding: 0 11px 0 53px;
-  text-overflow: ellipsis;
+  border-top: 1px solid #c6c6c6;
 }
 
-
-#location-input:focus {
-  border-color: #03dac6;
+.user-selected:hover {
+  background-color: #ffa500;
 }
 
-.location-container {
-  font-family: Roboto;
-}
-
-#type-selector {
-  color: #fff;
-  background-color: #03dac6;
-  padding: 5px 11px 0px 11px;
-}
-
-#type-selector label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
-}
 
 /* To be responsive */
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 768px) {
   .user-selected-item-container-responsive-hide{
       display: none;
   }
@@ -107,7 +70,7 @@ html, body, {
       display: none;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .user-selected-item-container-responsive-hide{
       display: none;
   }

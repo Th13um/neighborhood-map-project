@@ -13,18 +13,14 @@ class App extends Component {
   }
 
   constructor(props) {
-    super(props);
-    this.loadMap = this.loadMap.bind(this);
-    this.searchLocation = this.searchLocation.bind(this);
-    this.selectLocation = this.selectLocation.bind(this);
+    super(props)
+    this.loadMap = this.loadMap.bind(this)
+    this.searchLocation = this.searchLocation.bind(this)
+    this.selectLocation = this.selectLocation.bind(this)
   }
 
   componentDidMount() {
-    this.setState({
-      locations: DataLocations
-    })
-
-    window.loadMap = this.loadMap;
+    window.loadMap = this.loadMap
     initJS('https://maps.googleapis.com/maps/api/js?key=' + GoogleMapAPIKey + '&callback=loadMap')
   }
 
@@ -32,38 +28,35 @@ class App extends Component {
   //initialize map
   loadMap() {
 
-    const self = this;
-    const mapView = document.getElementById('mapContainer');
+    const self = this
+    const mapView = document.getElementById('mapContainer')
 
-    mapView.style.height = window.innerHeight + "px";
+    mapView.style.height = window.innerHeight + "px"
 
     const map = new window.google.maps.Map(mapView, {
       center: { lat: 48.864716, lng: 2.349014 },
       mapTypeControlOptions: {
-        style: window.google.maps.MapTypeId.ROAD,
-        position: window.google.maps.ControlPosition.LEFT_BOTTOM
+        style: window.google.maps.MapTypeId.ROAD
       },
       mapTypeControl: false
-    });
+    })
 
-    this.map = map;
-    this.FacebookInfoWindow = new window.google.maps.InfoWindow();
+    this.map = map
+    this.FacebookInfoWindow = new window.google.maps.InfoWindow()
 
-    //Set the Bounds of the Map to the Locations
-    const bounds = new window.google.maps.LatLngBounds();
+    const bounds = new window.google.maps.LatLngBounds()
 
     // Create Markers
     this.state.locations.forEach((location) => {
-      let myMarker = self.createMarker(location);
-      bounds.extend(myMarker.position);
-      location.marker = myMarker;
-    });
+      let myMarker = self.createMarker(location)
+      bounds.extend(myMarker.position)
+      location.marker = myMarker
+    })
+    this.map.fitBounds(bounds)
+  }
 
-    this.map.fitBounds(bounds);
-  };
 
-
-  //marker constructor
+ //marker constructor
   createMarker(location) {
 
     const self = this
@@ -75,7 +68,7 @@ class App extends Component {
       },
       map: this.map,
       title: location.title,
-      animation: window.google.maps.Animation.BOUNCE,
+      animation: window.google.maps.Animation.DROP,
       facebookID: location.id
     })
 
@@ -94,10 +87,10 @@ class App extends Component {
 
       // Center on clicked Marker
       this.map.panTo(new window.google.maps.LatLng(marker.position.lat(), marker.position.lng()))
-      infowindow.marker = marker;
+      infowindow.marker = marker
 
       // Displays message whilst Facebook Data is being retrieved
-      infowindow.setContent('<div>Info</div>')
+      infowindow.setContent('<div>Fetching Content from Facebook...</div>')
       infowindow.open(this.map, marker)
 
       // Event Listener - on Closing Window
@@ -105,36 +98,38 @@ class App extends Component {
         infowindow.marker = null
       })
     }
+
     // Get data about the Markers from the Facebook API
     const URL_REQ = "https://graph.facebook.com/"
-     + marker.facebookID
-     + "?fields=id,name,location,about,website&access_token="
-     + FacebookAccessToken;
+      + marker.facebookID
+      + "?fields=id,name,location,about,website&access_token="
+      + FacebookAccessToken;
 
-   const getFacebookGraphAPI = () =>
-     fetch(URL_REQ, {})
-       .then(res => res.json())
-       .then(data => data)
+    const getFacebookGraphAPI = () =>
+      fetch(URL_REQ, {})
+        .then(res => res.json())
+        .then(data => data)
 
-   getFacebookGraphAPI().then((response) => {
+    getFacebookGraphAPI().then((response) => {
+      console.log(response)
 
-     infowindow.setContent('<div>' +
-       '<div><strong>Name:</strong> ' + response.name + '</div>' +
-       '<div><strong>Address: </strong> ' + response.street + '</div>' +
-       '<div><strong>Description: </strong> ' + response.about + ' </div>' +
-       '<p><em> Data courtesy of Facebook Graph API </em></p>' +
-       '</div>')
+      infowindow.setContent('<div>' +
+        '<div><strong>Name:</strong> ' + response.name + '</div>' +
+        '<div><strong>Address: </strong> ' + response.location.street + '</div>' +
+        '<div><strong>Description: </strong> ' + response.about + ' </div>' +
+        '</div>')
 
-   })
+    })
 
- }
+  }
 
-  //Filter the list of locations
+//Filter the list of locations
   searchLocation(query) {
 
-    let self = this;
+    let self = this
 
     if (query === '') {
+
 
       // If no location in search field, set Locations to all
       this.setState((state) => {
@@ -146,22 +141,20 @@ class App extends Component {
       DataLocations.filter(location => {
         return location.marker.setMap(self.map)
       })
-    }
-    else {
+    } else {
 
       //Search DataLocations for the query
       let SearchedLocations = DataLocations.filter(location => {
 
         if (location.marker) {
           if (location.title.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
-            location.marker.setMap(self.map);
+            location.marker.setMap(self.map)
           } else {
-            location.marker.setMap(null);
+            location.marker.setMap(null)
           }
         }
         return location.title.toLowerCase().indexOf(query.toLowerCase()) > -1
-      }
-    )
+      })
 
       // Set Locations
       this.setState((state) => {
@@ -169,8 +162,6 @@ class App extends Component {
           locations: SearchedLocations
         }
       })
-
-
     }
   }
 
@@ -181,8 +172,6 @@ class App extends Component {
   selectLocation(data) {
     this.populateInfoWindow(data.marker, this.FacebookInfoWindow)
   }
-
-
 
   render() {
 
@@ -202,13 +191,13 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
 
 
 function initJS(src) {
-  const ref = window.document.getElementsByTagName("script")[0];
-  const script = window.document.createElement("script");
-  script.src = src;
-  script.async = true;
-  ref.parentNode.insertBefore(script, ref);
+  const ref = window.document.getElementsByTagName("script")[0]
+  const script = window.document.createElement("script")
+  script.src = src
+  script.async = true
+  ref.parentNode.insertBefore(script, ref)
 }
